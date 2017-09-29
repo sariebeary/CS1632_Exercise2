@@ -106,8 +106,11 @@ public class LaboonCoin {
      */
 
     public boolean validHash(int difficulty, int hash) {
-	  // TODO - CHECK FOR VALID HASHES
-	      return false;
+		String hexHash = Integer.toHexString(hash);
+		if((8 - hexHash.length()) >= difficulty) {
+			return true; 
+		}
+	    return false;
     }
 
     /**
@@ -135,7 +138,7 @@ public class LaboonCoin {
 	          toTry = String.format("%08x", prevHash) + String.format("%08x", nonce) + data;
 	    // Uncomment for debugging purposes
 	    // System.out.print("Trying: " + toTry + ".. ");
-
+			
 	          hashVal = hash(toTry);
 	          System.out.println("hash: " + String.format("%08x", hashVal));
 	          if (validHash(difficulty, hashVal)) {

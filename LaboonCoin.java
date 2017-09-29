@@ -54,11 +54,7 @@ public class LaboonCoin {
      * The LaboonHash algorithm is as follows:
      *   1. Convert a String into a sequence of characters
      *   2. Initialize a starting value, n, of 10000000 (10 million)
-<<<<<<< HEAD
      *   3. For each character, multiply n by its ASCII (char) value
-=======
-     *   3. For each character, multiply n by its ASCII (char) value
->>>>>>> kec141
      *   4. After multiplication, add the value of the ASCII (char) value to n
      *   5. Return n
      * For example, the LaboonHash of "boo" is:
@@ -84,18 +80,13 @@ public class LaboonCoin {
      */
 
     public int hash(String data) {
-	  // TODO - IMPLEMENT LABOONHASH
         int n = 10000000;
-
-        String dataIn = data;
-        char[] charSeq = dataIn.toCharArray();
-
-        int value = 0;
-        for(int i = 0; i < dataIn.length(); i++) {
-            value = (int)charSeq[i];
+        char[] charSeq = data.toCharArray();
+        int value;
+        for(char c: charSeq) {
+            value = (int)c;
             n = (n * value) + value;
         }
-
 	      return n;
     }
 

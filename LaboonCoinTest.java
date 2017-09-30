@@ -71,10 +71,10 @@ public class LaboonCoinTest {
 	@Test
 	public void testHashFunction() {
 		int laboonHash = _l.hash("laboon");
-		assertEquals("4e4587d6",  String.format("%08x", laboonHash));
+		assertEquals("4e4587d6", String.format("%08x", laboonHash));
 	}
 	
-	//0xab000000 is NOT valid - despite having six 0's, they are not at the beginning
+	//0x00ab0000 is NOT valid - despite having 4 0's, they are not at the beginning 
 	@Test
 	public void testNotValidHash() {
 		int hashVal = 0x00ab0000;

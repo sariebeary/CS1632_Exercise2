@@ -59,5 +59,34 @@ public class LaboonCoinTest {
     }
 
     // TODO - PUT YOUR SIX TESTS HERE
-
+	
+	//empty string hash to 0x00989680
+	@Test
+	public void testHashEmpty() {
+		int laboonHash = _l.hash("");
+		assertEquals("00989680",  String.format("%08x", laboonHash));
+	}
+	
+	//"laboon" (no quotes) hashes to 0x4e4587d6
+	@Test
+	public void testHashFunction() {
+		int laboonHash = _l.hash("laboon");
+		assertEquals("4e4587d6",  String.format("%08x", laboonHash));
+	}
+	
+	//0xab000000 is NOT valid - despite having six 0's, they are not at the beginning
+	@Test
+	public void testNotValidHash() {
+		int hashVal = 0x00ab0000;
+		int difficulty = 3; 
+		assertFalse(_l.validHash(difficulty, hashVal));
+	}
+	
+	//0x000fd98a is valid 
+	@Test
+	public void testValidHash() {
+		int hashVal = 0x00ffd98a;
+		int difficulty = 2; 
+		assertTrue(_l.validHash(difficulty, hashVal));
+	}
 }

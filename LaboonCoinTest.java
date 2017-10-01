@@ -77,6 +77,14 @@ public class LaboonCoinTest {
 		assertEquals(expectedHash, laboonHash);
 	}
 	
+	// The hash of the same string should be equal 
+	@Test
+	public void testHashEqual() {
+		int laboonHash = _l.hash("bill");
+		int laboonHash2 = _l.hash("bill");
+		assertEquals(laboonHash, laboonHash2);
+	}
+	
 	// A hash is not valid if there are not enough leading zeros to match the difficulty regardless of trailing zeros
 	// 0x00ab0000 is NOT valid - despite having 6 0's, there are not enough at the beginning 
 	@Test

@@ -60,33 +60,47 @@ public class LaboonCoinTest {
 
     // TODO - PUT YOUR SIX TESTS HERE
 	
-	//empty string hash to 0x00989680
+	// The hash of an empty string or null have a valid hash 0x00989680
 	@Test
-	public void testHashEmpty() {
+	public void testHashNull() {
 		int laboonHash = _l.hash("");
-		assertEquals("00989680",  String.format("%08x", laboonHash));
+		int expectedHash = 0x00989680;
+		assertEquals(expectedHash, laboonHash);
 	}
 	
-	//"laboon" (no quotes) hashes to 0x4e4587d6
+	// The hash of a string should produce the corresponding hash as defined by the LaboonHash algorithm
+	// "laboon" (no quotes) hashes to 0x4e4587d6
 	@Test
 	public void testHashFunction() {
 		int laboonHash = _l.hash("laboon");
-		assertEquals("4e4587d6", String.format("%08x", laboonHash));
+		int expectedHash = 0x4e4587d6;
+		assertEquals(expectedHash, laboonHash);
 	}
 	
-	//0x00ab0000 is NOT valid - despite having 4 0's, they are not at the beginning 
+	// A hash is not valid if there are not enough leading zeros to match the difficulty regardless of trailing zeros
+	// 0x00ab0000 is NOT valid - despite having 6 0's, there are not enough at the beginning 
 	@Test
-	public void testNotValidHash() {
+	public void testValidTrailing() {
 		int hashVal = 0x00ab0000;
 		int difficulty = 3; 
 		assertFalse(_l.validHash(difficulty, hashVal));
 	}
 	
-	//0x000fd98a is valid 
+	// A hash with more leading zeros than difficulty is still valid
+	// 0x000000d4 is valid with more leading zeros than difficulty
 	@Test
-	public void testValidHash() {
-		int hashVal = 0x00ffd98a;
-		int difficulty = 2; 
+	public void testValidExtraLeading() {
+		int hashVal = 0x000000d4;
+		int difficulty = 1; 
+		assertTrue(_l.validHash(difficulty, hashVal));
+	}
+	
+	// A hash with exactly the correct leading number of zeros as difficulty is valid
+	// 0x0000d98a IS valid - it has four 0's at the beginning
+	@Test
+	public void testValidExact() {
+		int hashVal = 0x0000d98a;
+		int difficulty = 4; 
 		assertTrue(_l.validHash(difficulty, hashVal));
 	}
 }
